@@ -20,6 +20,7 @@
     background-color: var(--background-color);
     max-width: 1400px;
     margin: 0 auto;
+    overflow-x: hidden;
   }
   
   a {
@@ -32,16 +33,51 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-  
-    padding: 0 50px;
+    
+    padding: 1rem 2rem;
     height: 80px;
   }
+  nav a {
+    display: inline-block; /* Enables transform effects */
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    margin: 0 1rem;
+    position: relative;
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+    transform-origin: center; /* Center scaling */
+  }
   
+  /* Hover Effects */
+  nav a:hover {
+    color: #86b6db;
+    transform: scale(1.15); /* Zoom effect */
+    letter-spacing: 1px;
+  }
+  
+  /* Underline effect on hover */
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #3498db;
+    transition: width 0.3s ease-out;
+  }
+  
+  nav a:hover::after {
+    width: 100%;
+  }
+  
+
   nav .left a {
     color: var(--text-color);
     font-size: 22px;
     font-weight: 600;
   }
+
   
   nav .right a {
     color: var(--text-color);
@@ -60,14 +96,74 @@
   }
   
   /* SECTION 1: Hero */
-  .hero-section {
+  @keyframes heroFadeSlide {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    60% {
+      opacity: 0.5;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+/* Hero text slide-fade animation */
+@keyframes heroFadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-section.animate {
+  opacity: 0;
+  transform: translateY(60px);
+}
+
+.hero-section.animate.visible {
+  animation: heroFadeSlide 1s ease-out forwards;
+}
+
+
+/* Headshot zoom + rotate */
+@keyframes zoomRotate {
+  from {
+    opacity: 0;
+    transform: scale(0.85) rotate(-5deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+.headshot.animate-img {
+  opacity: 0;
+  transform: scale(0.85) rotate(-5deg);
+}
+
+.headshot.animate-img.visible {
+  animation: zoomRotate 1s ease-out forwards;
+}
+
+ 
+  
+
+ .hero-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 50px;
-    margin: 50px 0;
-    margin-bottom: 100px;
-    gap: 40px;
+    padding: 2rem;
+    min-height: 100vh;
+    box-sizing: border-box;
   }
   
   .hero-section .text {
@@ -327,4 +423,96 @@
     .contact-section {
       padding: 0 20px;
     }
+    /* section 5: Resume */
+    .resume-button {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      background-color: #3498db;
+      color: white;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 1rem;
+      transition: all 0.3s ease-in-out;
+    }
+    
+    .resume-button i {
+      margin-right: 0.5rem;
+    }
+    
+    .resume-button:hover {
+      background-color: #2980b9;
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
   }
+ /* --- Animation Keyframes --- */
+
+@keyframes slideFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- Initial State --- */
+.animate-text,
+.animate-img {
+  opacity: 0;
+}
+
+/* --- Animate on Load --- */
+.animate-text.visible {
+  animation: slideFadeUp 1s ease-out forwards;
+}
+
+.animate-img.visible {
+  animation: zoomFade 1.2s ease-out forwards;
+}
+ 
+/* Stronger slide + fade animation */
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  60% {
+    opacity: 0.5;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate {
+  opacity: 0;
+  transform: translateY(60px);
+  animation: none;
+}
+
+.animate.visible {
+  animation: fadeSlideUp 1s ease-out forwards;
+}
+.animate {
+  will-change: transform, opacity;
+}
+

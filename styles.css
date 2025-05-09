@@ -1,3 +1,4 @@
+
 :root {
   --glass-bg: rgba(255, 255, 255, 0.15);
   --glass-border: 1px solid rgba(255, 255, 255, 0.18);
@@ -388,50 +389,107 @@ nav .right a {
   
   /* SECTION 2: Skills */
   .skills-section {
-    padding: 0 50px;
-    margin-bottom: 100px;
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.skills-section h2 {
+  color: var(--accent-color);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.skill-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 2rem 1rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(74, 144, 226, 0.2);
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(74, 144, 226, 0.1) 0%,
+    rgba(138, 43, 226, 0.1) 100%
+  );
+  transform: rotate(30deg);
+  transition: all 0.6s ease;
+  z-index: -1;
+}
+
+.skill-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.skill-card:hover::before {
+  transform: rotate(60deg);
+}
+
+.skill-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--accent-color);
+  transition: all 0.3s ease;
+}
+
+.skill-card:hover .skill-icon {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.skill-name {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.skill-desc {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+/* Animation for skills */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
   }
-  
-  .skills-section h2 {
-    text-align: center;
-    font-size: 35px;
+  50% {
+    transform: translateY(-10px);
   }
-  
-  .skills-section .text {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .skills-section .cells {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .skills-section .cells .cell {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  
-    width: 200px;
-    padding: 10px 20px;
-    margin: 10px;
-    border: 1.5px solid #d3d3d3;
-    border-radius: 5px;
-  }
-  
-  .skills-section .cells .cell img {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-    border-radius: 2px;
-  }
-  
-  .skills-section .cells .cell span {
-    font-size: 18px;
-  }
-  
+}
+
+.skill-card:nth-child(odd) {
+  animation: float 4s ease-in-out infinite;
+}
+
+.skill-card:nth-child(even) {
+  animation: float 5s ease-in-out infinite 1s;
+}
   
   /* SECTION 4: Contact */
     .contact-section {
